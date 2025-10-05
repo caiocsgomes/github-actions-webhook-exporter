@@ -11,15 +11,15 @@ before:
     - go mod tidy
     - /bin/bash -c 'if [ -n "$(git --no-pager diff --exit-code go.mod go.sum)" ]; then exit 1; fi'
 
-gomod:
-  proxy: true
+# gomod:
+#   proxy: true
 
 snapshot:
   version_template: "{{ .Tag }}-SNAPSHOT"
 
 builds:
   - id: binary
-    binary: github-actions-exporter
+    binary: github-actions-webhook-exporter
     goos:
       - linux
       - darwin
