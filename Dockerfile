@@ -1,7 +1,7 @@
 FROM cgr.dev/chainguard/static:latest
 
-COPY github-actions-exporter /github-actions-exporter
+COPY github-actions-exporter-exporter /github-actions-webhook-exporter
 
 USER nobody
-ENTRYPOINT ["/github-actions-exporter"]
+ENTRYPOINT ["/github-actions-webhook-exporter"]
 EXPOSE     9101
