@@ -41,22 +41,23 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-  #     - name: Check out code onto GOPATH
-  #       uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
-  #
-  #     - name: Set tag output
-  #       id: get_tag
-  #       run: echo "tag_name=${GITHUB_REF#refs/*/}" >> "$GITHUB_OUTPUT"
-  #
-  #     - name: Run GoReleaser
-  #       id: run-goreleaser
-  #       uses: goreleaser/goreleaser-action@e435ccd777264be153ace6237001ef4d979d3a7a # v6.4.0
-  #       with:
-  #         version: latest
-  #         args: release --clean --timeout 120m
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #         GIT_TAG: ${{ steps.get_tag.outputs.tag_name }}
+      - name: Check out code onto GOPATH
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Set tag output
+        id: get_tag
+        # run: echo "tag_name=${GITHUB_REF#refs/*/}" >> "$GITHUB_OUTPUT"
+        run: echo "tag_name=v0.1" >> "$GITHUB_OUTPUT"
+
+      - name: Run GoReleaser
+        id: run-goreleaser
+        uses: goreleaser/goreleaser-action@e435ccd777264be153ace6237001ef4d979d3a7a # v6.4.0
+        with:
+          version: latest
+          args: release --clean --timeout 120m
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_TAG: ${{ steps.get_tag.outputs.tag_name }}
   #
   #     - name: Generate subject
   #       id: hash
