@@ -2,8 +2,6 @@ name: Release
 
 on:
   push:
-    branches:
-      - main
     tags:
       - "v*" # Push events to matching v*, i.e. v1.0, v20.15.10
 
@@ -46,8 +44,7 @@ jobs:
 
       - name: Set tag output
         id: get_tag
-        # run: echo "tag_name=${GITHUB_REF#refs/*/}" >> "$GITHUB_OUTPUT"
-        run: echo "tag_name=v0.1" >> "$GITHUB_OUTPUT"
+        run: echo "tag_name=${GITHUB_REF#refs/*/}" >> "$GITHUB_OUTPUT"
 
       - name: Run GoReleaser
         id: run-goreleaser
