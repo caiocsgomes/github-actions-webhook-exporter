@@ -3,7 +3,7 @@ version: 2
 
 env:
   - DOCKER_CLI_EXPERIMENTAL=enabled
-  - COSIGN_YES=true
+  # - COSIGN_YES=true
 
 # Prevents parallel builds from stepping on each others toes downloading modules
 before:
@@ -36,41 +36,41 @@ builds:
       -X github.com/prometheus/common/version.BuildUser=caiocsgomes
       -X github.com/prometheus/common/version.BuildDate={{.Date}}
 
-archives:
-  - format: binary
-    allow_different_binary_count: true
+# archives:
+#   - format: binary
+# allow_different_binary_count: true
 
-checksum:
-  name_template: checksums.txt
+# checksum:
+#   name_template: checksums.txt
 
-signs:
-  - signature: "${artifact}.sig"
-    certificate: "${artifact}.pem"
-    cmd: cosign
-    args:
-      [
-        "sign-blob",
-        "--output-signature",
-        "${artifact}.sig",
-        "--output-certificate",
-        "${artifact}.pem",
-        "${artifact}",
-      ]
-    artifacts: binary
-  - id: checksum-sign
-    signature: "${artifact}.sig"
-    certificate: "${artifact}.pem"
-    cmd: cosign
-    args:
-      [
-        "sign-blob",
-        "--output-signature",
-        "${artifact}.sig",
-        "--output-certificate",
-        "${artifact}.pem",
-        "${artifact}",
-      ]
-    artifacts: checksum
+# signs:
+#   - signature: "${artifact}.sig"
+#     certificate: "${artifact}.pem"
+#     cmd: cosign
+#     args:
+#       [
+#         "sign-blob",
+#         "--output-signature",
+#         "${artifact}.sig",
+#         "--output-certificate",
+#         "${artifact}.pem",
+#         "${artifact}",
+#       ]
+#     artifacts: binary
+#   - id: checksum-sign
+#     signature: "${artifact}.sig"
+#     certificate: "${artifact}.pem"
+#     cmd: cosign
+#     args:
+#       [
+#         "sign-blob",
+#         "--output-signature",
+#         "${artifact}.sig",
+#         "--output-certificate",
+#         "${artifact}.pem",
+#         "${artifact}",
+#       ]
+#     artifacts: checksum
 
 kos:
   - id: ko-image
