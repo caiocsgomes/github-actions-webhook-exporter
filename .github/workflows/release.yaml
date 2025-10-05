@@ -47,9 +47,7 @@ jobs:
         run: echo "tag_name=${GITHUB_REF#refs/*/}" >> "$GITHUB_OUTPUT"
 
       - name: Docker build and push
-        run: docker buildx build --push --platform linux/arm64,linux/amd64 \
-          --tag "ghcr.io/${{ github.repository }}:${{ steps.get_tag.outputs.tag_name }}" \
-          --tag "ghcr.io/${{ github.repository }}:latest" .
+        run: docker buildx build --push --platform linux/arm64,linux/amd64 --tag "ghcr.io/${{ github.repository }}:${{ steps.get_tag.outputs.tag_name }}" --tag "ghcr.io/${{ github.repository }}:latest" .
 
       # - name: Run GoReleaser
       #   id: run-goreleaser
